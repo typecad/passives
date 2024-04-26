@@ -1,14 +1,11 @@
 {
   "name": "@typecad/passives",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "typeCAD package that includes simple access to most passive components",
   "main": "index.ts",
   "keywords": ["typecad", "passives", "resistor", "capacitor", "diode", "led", "inductor", "connector", "power flag"],
   "author": "",
   "license": "ISC",
-  "dependencies": {
-    "@typecad/typecad": "^0.0.8"
-  },
   "scripts": {
     "package_publish": "npm publish --access public"
   }
