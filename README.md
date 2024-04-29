@@ -1,7 +1,7 @@
 # typeCAD Passives
 This is a typeCAD package that includes simple access to many passive components. 
 
-## Resistors, capacitors, LEDs, diodes fuses, and inductors
+## Resistors, capacitors, LEDs, diodes, fuses, and inductors
 This package uses a named parameter-like interface. Any value can be included or left out. They can be access and modified later in code. 
 
 ```ts
