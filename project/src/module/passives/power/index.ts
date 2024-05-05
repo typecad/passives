@@ -7,6 +7,8 @@ export class Power {
     ground: string;
     maximum: number;
     minimum: number;
+    power_pin: Pin;
+    ground_pin: Pin;
 
     constructor({ reference, xy, schematic, voltage, maximum, minimum }: Passive_Initializer = {}) {
         reference = PWR_Counter.reference(reference);
@@ -34,6 +36,7 @@ export class Power {
             vcc.Value = this.power;
             schematic.add(vcc);
             schematic.add(vcc_flag);
+            this.power_pin = vcc.pin(1);
             schematic.net(`${voltage}:power`, vcc.pin(1), vcc_flag.pin(1));
 
             PWR_Counter.inc();
@@ -42,6 +45,7 @@ export class Power {
             gnd.Value = this.ground;
             schematic.add(gnd);
             schematic.add(gnd_flag);
+            this.ground_pin = gnd.pin(1);
             schematic.net(this.ground, gnd.pin(1), gnd_flag.pin(1));
         }
     }
