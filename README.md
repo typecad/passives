@@ -6,8 +6,8 @@ This package uses a named parameter-like interface. Any value can be included or
 
 ```ts
 import { Schematic } from '@typecad/typecad'
-import { Resistor, LED, Capacitor, Diode, Inductor } from '@typecad/passives/0805'
-import  *  as _0603 from '@typecad/passives/0805'
+import { Resistor, LED, Capacitor, Diode, Inductor, Fuse } from './module/passives/0805'
+import  *  as _0603 from './module/passives/0603'
 
 let typecad = new Schematic('passives');
 
@@ -21,9 +21,9 @@ let led = new _0603.LED();      // a 0603 instead of 0805
 typecad.create(resistor, led, capacitor, inductor, diode, fuse);
 ```
 Other sizes are:
-- `@typecad/passives/0603`
-- `@typecad/passives/0402`
-- `@typecad/passives/0201` **no fuses*
+- `./module/passives/0603`
+- `./module/passives/0402`
+- `./module/passives/0201` **no fuses*
 
 ### Auto designation
 If `{ reference }` is not included, the component will be auto-numbered. If there are any name collisions, the new name will be suffixed with a `_1`, ie `R1_1`. 
@@ -35,7 +35,7 @@ If auto-designation is used, components have the potential to move/switch/replac
 Connectors can be created similarly.
 
 ```ts
-import { Connector } from '@typecad/passives/connector'
+import { Connector } from './module/passives/connector'
 
 // create a 10-pin connector using the JST footprint passed in the last parameter
 let j1 = new Connector({ number: 10, footprint:"Connector_JST:JST_SH_SM10B-SRSS-TB_1x10-1MP_P1.00mm_Horizontal" });
@@ -43,18 +43,16 @@ let j1 = new Connector({ number: 10, footprint:"Connector_JST:JST_SH_SM10B-SRSS-
 let j2 = new Connector({ number: 5 });
 ```
 
-## Power Flags
-For KiCAD's ERC, the PWR_Flag is often needed. 
+## Power 
+Power and ground symbols are available. In addition to the symbols, power flags are also created along with the voltage max and min. These values can be used to verify sub-circuits are getting the correct voltage. The `Power` class has a convenient way to use the net names, they can be referenced by `Power::power` and `Power::ground`. 
 
 ```ts
-import { PWR_Flag } from '@typecad/passives/flag'
-let pflag = new PWR_Flag();
-let pflag = new PWR_Flag();
-...
-// connect pflag to the power net
-typecad.net('vcc', pflag.pin(1));
+import { Power } from "./module/passives/power";
 
-// and ground power flag to the ground net
-typecad.net('gnd', gflag.pin(1));
+// creates a power and ground symbol plus power flags for each
+let vcc_3v3 = new Power({ voltage: 3.3, schematic: typecad});
+...
+typecad.net(vcc_3v3.power, ...);
+typecad.net(vcc_3v3.ground, ...);
 ...
 ```
