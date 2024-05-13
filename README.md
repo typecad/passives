@@ -44,15 +44,37 @@ let j2 = new Connector({ number: 5 });
 ```
 
 ## Power 
-Power and ground symbols are available. In addition to the symbols, power flags are also created along with the voltage max and min. These values can be used to verify sub-circuits are getting the correct voltage. The `Power` class has a convenient way to use the net names, they can be referenced by `Power::power` and `Power::ground`. 
+Power is abstracted in **type**CAD. This package includes a `Power` class which progressively does more as different parameters are passed.
 
 ```ts
-import { Power } from "./module/passives/power";
-
-// creates a power and ground symbol plus power flags for each
-let vcc_3v3 = new Power({ voltage: 3.3, schematic: typecad});
-...
-typecad.net(vcc_3v3.power, ...);
-typecad.net(vcc_3v3.ground, ...);
-...
+let vcc_3v3 = new Power({ voltage: 3.3 });
 ```
+- creates a `Power` instance, `voltage` is optional, but allows for assertion checking voltage ranges
+---
+```ts
+let lipo = new Power({ voltage: 3.3, maximum: 4.2, minimum: 3.2 });
+```
+- passing optional `maximum` and `minimum` allows for more voltage assertions
+---
+```ts
+let typecad = new Schematic('power');
+let lipo = new Power({ voltage: 3.3, schematic: typecad });
+```
+- creates a power (VCC, VDC, +3V3) symbol named `3.3:power`
+- creates a ground symbol named `ground`
+---
+```ts
+let typecad = new Schematic('power');
+let vcc_5v0 = new Power({ voltage: 5.0, schematic: typecad, power_name: "+5v0", power_flag: true});
+```
+- creates a power symbol named `+5v0:power`
+- creates a PWR_Flag attached to power for ERC
+- creates a ground symbol named `ground`
+---
+```ts
+let typecad = new Schematic('power');
+let iso_3v3 = new Power({voltage: 3.3, schematic: typecad, ground_flag: true, ground_name: "iso_ground"});
+```
+- creates a power symbol named `3.3:power`
+- creates a ground symbol named `iso_ground` with a PWR_Flag attached
+---

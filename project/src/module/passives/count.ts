@@ -1,16 +1,25 @@
 import { Bounds, Schematic } from "@typecad/typecad";
 
-export { R_Counter, F_Counter, Passive_Initializer, Resistor_Initializer, Capacitor_Initializer, Connector_Initializer, 
-    I_Counter, D_Counter, C_Counter, PWR_Counter, J_Counter };
+export { C_Counter, Capacitor_Initializer, Connector_Initializer, D_Counter, F_Counter, I_Counter, J_Counter, PWR_Counter, Passive_Initializer, Power_Initializer, R_Counter, Resistor_Initializer };
 
 interface Passive_Initializer {
+    reference?: string,
+    value?: string,
+    xy?: Bounds,
+}
+
+interface Power_Initializer {
     reference?: string,
     value?: string,
     xy?: Bounds,
     schematic?: Schematic,
     voltage?: number, 
     maximum?: number, 
-    minimum?: number
+    minimum?: number,
+    power_name?: string,
+    ground_name?: string,
+    power_flag?: boolean,
+    ground_flag?: boolean
 }
 
 interface Resistor_Initializer  {
@@ -37,6 +46,7 @@ interface Connector_Initializer  {
 class counter {
     count: number = 0;
     prefix: string = '';
+    refs: string[] = [];
 
     constructor(prefix:string){
         this.prefix = prefix;
@@ -48,14 +58,16 @@ class counter {
     reference(reference?: string) {
         this.inc();
         if (reference == undefined) {
+            this.refs.push(this.prefix + this.count);
             return this.prefix + this.count;
         } else {
             // check if this will be a repeat reference number
-            if (parseInt(reference.slice(1)) < this.count) {
+            if (this.refs.includes(reference)) {
+                this.refs.push(reference);
                 return reference + '_1';
             } else {
+                this.refs.push(reference);
                 return reference;
-                
             }
         }
     }

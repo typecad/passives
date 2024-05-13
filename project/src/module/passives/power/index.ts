@@ -1,5 +1,5 @@
 import { Component, Pin } from '@typecad/typecad'
-import { PWR_Counter, Passive_Initializer } from '../count';
+import { PWR_Counter, Power_Initializer } from '../count';
 
 export class Power {
     voltage: number;
@@ -9,8 +9,9 @@ export class Power {
     minimum: number;
     power_pin: Pin;
     ground_pin: Pin;
+    name: string;
 
-    constructor({ reference, xy, schematic, voltage, maximum, minimum }: Passive_Initializer = {}) {
+    constructor({ reference, xy, schematic, voltage, maximum, minimum, power_name, ground_name, power_flag, ground_flag }: Power_Initializer = {}) {
         reference = PWR_Counter.reference(reference);
 
         if (voltage) {
@@ -27,26 +28,42 @@ export class Power {
 
             this.voltage = voltage;
             this.power = `${voltage}:power`;
-            this.ground = `${voltage}:ground`;
+            this.ground = `ground`;
+        }
+
+        if (power_name) {
+            this.power = `${power_name}`;
+        }
+        if (ground_name) {
+            this.ground = `${ground_name}`;
         }
 
         if (schematic) {
             let vcc = new Component(`power:VCC`, `#PWR${PWR_Counter.count}`);
-            let vcc_flag = new Component(`power:PWR_FLAG`, `#FLG${PWR_Counter.count}`);
+            if (power_flag == true){
+                let vcc_flag = new Component(`power:PWR_FLAG`, `#FLG${PWR_Counter.count}`);
+                schematic.add(vcc_flag);
+                schematic.net(this.power, vcc.pin(1), vcc_flag.pin(1));
+            } else {
+                schematic.net(this.power, vcc.pin(1));
+            }
             vcc.Value = this.power;
             schematic.add(vcc);
-            schematic.add(vcc_flag);
             this.power_pin = vcc.pin(1);
-            schematic.net(`${voltage}:power`, vcc.pin(1), vcc_flag.pin(1));
 
             PWR_Counter.inc();
             let gnd = new Component(`power:GND`, `#PWR${PWR_Counter.count}`);
-            let gnd_flag = new Component(`power:PWR_FLAG`, `#FLG${PWR_Counter.count}`);
+            if (ground_flag == true){
+                let gnd_flag = new Component(`power:PWR_FLAG`, `#FLG${PWR_Counter.count}`);
+                schematic.add(gnd_flag);
+                schematic.net(this.ground, gnd.pin(1), gnd_flag.pin(1));
+            } else {
+                schematic.net(this.ground, gnd.pin(1));
+            }
             gnd.Value = this.ground;
             schematic.add(gnd);
-            schematic.add(gnd_flag);
+            
             this.ground_pin = gnd.pin(1);
-            schematic.net(this.ground, gnd.pin(1), gnd_flag.pin(1));
         }
     }
 }

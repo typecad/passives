@@ -1,6 +1,6 @@
 {
   "name": "@typecad/passives",
-  "version": "0.0.12",
+  "version": "0.0.13",
   "description": "typeCAD package that includes simple access to most passive components",
   "keywords": [
     "typecad",
