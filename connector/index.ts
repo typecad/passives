@@ -12,9 +12,9 @@ export class Connector extends Component {
             number_string = number.toString();
         }
         if (footprint == undefined) {
-            super(`Connector:Conn_01x${number_string}_Pin`, reference, '', `Connector_PinHeader_2.54mm:PinHeader_1x${number_string}_P2.54mm_Vertical`, xy);
+            super({symbol: `Connector:Conn_01x${number_string}_Pin`, reference: reference, footprint: `Connector_PinHeader_2.54mm:PinHeader_1x${number_string}_P2.54mm_Vertical`, xy:xy});
         } else {
-            super(`Connector:Conn_01x${number_string}_Pin`, reference, '', footprint, xy);
+            super({symbol: `Connector:Conn_01x${number_string}_Pin`, reference:reference, footprint:footprint, xy:xy});
         }
     }
 }

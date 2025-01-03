@@ -1,7 +1,7 @@
 {
   "name": "@typecad/passives",
-  "version": "0.0.13",
-  "description": "typeCAD package that includes simple access to most passive components",
+  "version": "0.0.17",
+  "description": "typeCAD package that includes simple access to common components",
   "keywords": [
     "typecad",
     "passives",
@@ -16,10 +16,9 @@
   "author": "typeCAD",
   "license": "ISC",
   "scripts": {
-    "package_publish": "npm publish --access public",
-    "postinstall": "node postinstall.js"
+    "package_publish": "npm publish --access public"
   },
   "devDependencies": {
-    "@typecad/typecad": "^0.0.13"
+    "@typecad/typecad": "~0.0.18"
   }
 }

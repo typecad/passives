@@ -1,11 +1,20 @@
 import { Bounds, Schematic } from "@typecad/typecad";
 
-export { C_Counter, Capacitor_Initializer, Connector_Initializer, D_Counter, F_Counter, I_Counter, J_Counter, PWR_Counter, Passive_Initializer, Power_Initializer, R_Counter, Resistor_Initializer };
+export { C_Counter, Capacitor_Initializer, Connector_Initializer, D_Counter, F_Counter, L_Counter, J_Counter, PWR_Counter, Passive_Initializer, Power_Initializer, R_Counter, Resistor_Initializer, Tie_Initializer, NT_Counter };
 
 interface Passive_Initializer {
     reference?: string,
     value?: string,
     xy?: Bounds,
+    footprint?: string,
+}
+
+interface Tie_Initializer {
+    reference?: string,
+    net1?: string, net2?: string, net3?: string, net4?: string
+    xy?: Bounds,
+    schematic?: Schematic,
+    footprint?: string,
 }
 
 interface Power_Initializer {
@@ -13,8 +22,8 @@ interface Power_Initializer {
     value?: string,
     xy?: Bounds,
     schematic?: Schematic,
-    voltage?: number, 
-    maximum?: number, 
+    voltage?: number,
+    maximum?: number,
     minimum?: number,
     power_name?: string,
     ground_name?: string,
@@ -22,21 +31,23 @@ interface Power_Initializer {
     ground_flag?: boolean
 }
 
-interface Resistor_Initializer  {
+interface Resistor_Initializer {
     reference?: string,
     value?: string,
     wattage?: string,
-    xy?: Bounds
+    xy?: Bounds,
+    footprint?: string
 }
 
-interface Capacitor_Initializer  {
+interface Capacitor_Initializer {
     reference?: string,
     value?: string,
     voltage?: string,
-    xy?: Bounds
+    xy?: Bounds,
+    footprint?: string
 }
 
-interface Connector_Initializer  {
+interface Connector_Initializer {
     reference?: string,
     number: number,
     footprint?: string,
@@ -48,7 +59,7 @@ class counter {
     prefix: string = '';
     refs: string[] = [];
 
-    constructor(prefix:string){
+    constructor(prefix: string) {
         this.prefix = prefix;
     }
     inc() {
@@ -75,8 +86,9 @@ class counter {
 
 let R_Counter = new counter('R');
 let F_Counter = new counter('F');
-let I_Counter = new counter('I');
+let L_Counter = new counter('L');
 let D_Counter = new counter('D');
 let C_Counter = new counter('C');
 let PWR_Counter = new counter('#FLG');
 let J_Counter = new counter('J');
+let NT_Counter = new counter('NT');

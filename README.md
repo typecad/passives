@@ -2,7 +2,7 @@
 This is a typeCAD package that includes simple access to many passive components. 
 
 ## Resistors, capacitors, LEDs, diodes, fuses, and inductors
-This package uses a named parameter-like interface. Any value can be included or left out. They can be access and modified later in code. 
+This package uses a named parameter-like interface. Any parameter can be included or left out. They can be access and modified later in code. 
 
 ```ts
 import { Schematic } from '@typecad/typecad'
@@ -20,7 +20,10 @@ let led = new _0603.LED();      // a 0603 instead of 0805
 
 typecad.create(resistor, led, capacitor, inductor, diode, fuse);
 ```
-Other sizes are:
+All of the sizes are:
+- `./module/passives/1210`
+- `./module/passives/1206`
+- `./module/passives/0805`
 - `./module/passives/0603`
 - `./module/passives/0402`
 - `./module/passives/0201` **no fuses*
@@ -28,7 +31,7 @@ Other sizes are:
 ### Auto designation
 If `{ reference }` is not included, the component will be auto-numbered. If there are any name collisions, the new name will be suffixed with a `_1`, ie `R1_1`. 
 
-#### Watch out☠️
+#### ☠️ Watch out
 If auto-designation is used, components have the potential to move/switch/replace each other in the PCB Editor. The first component created will be x1, then x2 and so on. If there is a component added above x1 in the code, that topmost component will now be x1 and the old x1 will now be x2. This will cause them to switch places when imported into the PCB Editor. Specifying the reference for every component avoids this. 
 
 ## Connectors
@@ -47,33 +50,29 @@ let j2 = new Connector({ number: 5 });
 Power is abstracted in **type**CAD. This package includes a `Power` class which progressively does more as different parameters are passed.
 
 ```ts
-let vcc_3v3 = new Power({ voltage: 3.3 });
+let typecad = new Schematic('power');
+let vcc_3v3 = new Power({ voltage: 3.3, schematic: typecad });
 ```
 - creates a `Power` instance, `voltage` is optional, but allows for assertion checking voltage ranges
+- a Power Flag is also created for both power and ground
+<br><br>
 ---
 ```ts
-let lipo = new Power({ voltage: 3.3, maximum: 4.2, minimum: 3.2 });
+let lipo = new Power({ voltage: 3.3, maximum: 4.2, minimum: 3.2, schematic: typecad });
 ```
 - passing optional `maximum` and `minimum` allows for more voltage assertions
+<br><br>
 ---
 ```ts
 let typecad = new Schematic('power');
-let lipo = new Power({ voltage: 3.3, schematic: typecad });
-```
-- creates a power (VCC, VDC, +3V3) symbol named `3.3:power`
-- creates a ground symbol named `ground`
----
-```ts
-let typecad = new Schematic('power');
-let vcc_5v0 = new Power({ voltage: 5.0, schematic: typecad, power_name: "+5v0", power_flag: true});
+let vcc_5v0 = new Power({ voltage: 5.0, schematic: typecad, power_name: "+5v0" });
 ```
 - creates a power symbol named `+5v0:power`
-- creates a PWR_Flag attached to power for ERC
 - creates a ground symbol named `ground`
 ---
 ```ts
 let typecad = new Schematic('power');
-let iso_3v3 = new Power({voltage: 3.3, schematic: typecad, ground_flag: true, ground_name: "iso_ground"});
+let iso_3v3 = new Power({voltage: 3.3, schematic: typecad, ground_name: "iso_ground"});
 ```
 - creates a power symbol named `3.3:power`
 - creates a ground symbol named `iso_ground` with a PWR_Flag attached
