@@ -6,8 +6,8 @@ This package uses a named parameter-like interface. Any parameter can be include
 
 ```ts
 import { Schematic } from '@typecad/typecad'
-import { Resistor, LED, Capacitor, Diode, Inductor, Fuse } from './module/passives/0805'
-import  *  as _0603 from './module/passives/0603'
+import { Resistor, LED, Capacitor, Diode, Inductor, Fuse } from '@typecad/passives/0805'
+import  *  as _0603 from '@typecad/passives/0603'
 
 let typecad = new Schematic('passives');
 
@@ -21,12 +21,12 @@ let led = new _0603.LED();      // a 0603 instead of 0805
 typecad.create(resistor, led, capacitor, inductor, diode, fuse);
 ```
 All of the sizes are:
-- `./module/passives/1210`
-- `./module/passives/1206`
-- `./module/passives/0805`
-- `./module/passives/0603`
-- `./module/passives/0402`
-- `./module/passives/0201` **no fuses*
+- `@typecad/passives/1210`
+- `@typecad/passives/1206`
+- `@typecad/passives/0805`
+- `@typecad/passives/0603`
+- `@typecad/passives/0402`
+- `@typecad/passives/0201` **no fuses*
 
 ### Auto designation
 If `{ reference }` is not included, the component will be auto-numbered. If there are any name collisions, the new name will be suffixed with a `_1`, ie `R1_1`. 

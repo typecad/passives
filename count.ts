@@ -1,4 +1,4 @@
-import { Bounds, Schematic } from "@typecad/typecad";
+import { Bounds, Schematic, Pin } from "@typecad/typecad";
 
 export { C_Counter, Capacitor_Initializer, Connector_Initializer, D_Counter, F_Counter, L_Counter, J_Counter, PWR_Counter, Passive_Initializer, Power_Initializer, R_Counter, Resistor_Initializer, Tie_Initializer, NT_Counter };
 
@@ -11,7 +11,7 @@ interface Passive_Initializer {
 
 interface Tie_Initializer {
     reference?: string,
-    net1?: string, net2?: string, net3?: string, net4?: string
+    net1?: Pin, net2?: Pin, net3?: Pin, net4?: Pin
     xy?: Bounds,
     schematic?: Schematic,
     footprint?: string,
