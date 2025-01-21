@@ -1,8 +1,6 @@
 import { Component, Pin } from '@typecad/typecad'
-import { NT_Counter, Tie_Initializer } from '../count';
 
 export class Tie extends Component{
-    voltage: number;
     power: string;
     ground: string;
     maximum: number;
@@ -11,8 +9,7 @@ export class Tie extends Component{
     ground_pin: Pin;
     name: string;
 
-    constructor({ reference, xy, schematic, net1, net2, net3, net4, footprint }: Tie_Initializer = {}) {
-        reference = NT_Counter.reference(reference);
+    constructor({ reference, xy, schematic, net1, net2, net3, net4, footprint }) {
 
         if (!schematic) return;
         if (!net1) return;

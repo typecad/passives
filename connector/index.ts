@@ -1,9 +1,13 @@
-import { Component } from '@typecad/typecad'
-import { J_Counter, Connector_Initializer } from '../count'
+import { Component } from '@typecad/typecad2'
+
+interface IConnector {
+    reference?: string,
+    number: number,
+    footprint?: string,
+}
 
 export class Connector extends Component {
-    constructor({ number, reference, footprint, xy }: Connector_Initializer = {number: 1}) {
-        reference = J_Counter.reference(reference);
+    constructor({ number, reference, footprint }: IConnector = {number: 1}) {
         let number_string: string;
 
         if (number < 10) {
@@ -12,9 +16,9 @@ export class Connector extends Component {
             number_string = number.toString();
         }
         if (footprint == undefined) {
-            super({symbol: `Connector:Conn_01x${number_string}_Pin`, reference: reference, footprint: `Connector_PinHeader_2.54mm:PinHeader_1x${number_string}_P2.54mm_Vertical`, xy:xy});
+            super({reference: reference, footprint: `Connector_PinHeader_2.54mm:PinHeader_1x${number_string}_P2.54mm_Vertical`, prefix: 'J' });
         } else {
-            super({symbol: `Connector:Conn_01x${number_string}_Pin`, reference:reference, footprint:footprint, xy:xy});
+            super({reference:reference, footprint:footprint, prefix: 'J'});
         }
     }
 }
