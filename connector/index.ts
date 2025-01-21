@@ -1,4 +1,4 @@
-import { Component } from '@typecad/typecad2'
+import { Component } from '@typecad/typecad'
 
 interface IConnector {
     reference?: string,
