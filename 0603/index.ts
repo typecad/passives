@@ -1,41 +1,41 @@
 import { Component, IComponent } from '@typecad/typecad'
 
 export class Fuse extends Component {
-  constructor({ reference, value, footprint, prefix, datasheet, description, voltage, wattage, mpn }: IComponent = {}) {
-    super({ reference: reference, value: value, footprint: footprint || "Fuse:Fuse_0603_1608Metric", prefix: prefix || 'F', datasheet, description, voltage, wattage, mpn });
+  constructor({ reference, value, footprint, prefix, datasheet, description, voltage, wattage, mpn, simulation }: IComponent = {}) {
+    super({ reference: reference, value: value, footprint: footprint || "Fuse:Fuse_0603_1608Metric", prefix: prefix || 'F', datasheet, description, voltage, wattage, mpn, simulation });
   }
 }
 
 export class Inductor extends Component {
-  constructor({ reference, value, footprint, prefix, datasheet, description, voltage, wattage, mpn }: IComponent = {}) {
-    super({ reference: reference, value: value, footprint: footprint || "Inductor_SMD:L_0603_1608Metric", prefix: prefix || 'L', datasheet, description, voltage, wattage, mpn });
+  constructor({ reference, value, footprint, prefix, datasheet, description, voltage, wattage, mpn, simulation }: IComponent = {}) {
+    super({ reference: reference, value: value, footprint: footprint || "Inductor_SMD:L_0603_1608Metric", prefix: prefix || 'L', datasheet, description, voltage, wattage, mpn, simulation });
   }
 }
 
 export class Diode extends Component {
-  constructor({ reference, value, footprint, prefix, datasheet, description, voltage, wattage, mpn }: IComponent = {}) {
-    super({ reference: reference, value: value, footprint: footprint || "Diode_SMD:D_0603_1608Metric", prefix: prefix || 'D', datasheet, description, voltage, wattage });
+  constructor({ reference, value, footprint, prefix, datasheet, description, voltage, wattage, mpn, simulation }: IComponent = {}) {
+    super({ reference: reference, value: value, footprint: footprint || "Diode_SMD:D_0603_1608Metric", prefix: prefix || 'D', datasheet, description, voltage, wattage, mpn, simulation });
   }
 }
 
 export class LED extends Component {
-  constructor({ reference, value, footprint, prefix, datasheet, description, voltage, wattage, mpn }: IComponent = {}) {
-    super({ reference: reference, value: value, footprint: footprint || "LED_SMD:LED_0603_1608Metric", prefix: prefix || 'D', datasheet, description, voltage, wattage, mpn });
+  constructor({ reference, value, footprint, prefix, datasheet, description, voltage, wattage, mpn, simulation }: IComponent = {}) {
+    super({ reference: reference, value: value, footprint: footprint || "LED_SMD:LED_0603_1608Metric", prefix: prefix || 'D', datasheet, description, voltage, wattage, mpn, simulation });
   }
 }
 
 export class Resistor extends Component {
   Wattage?: string;
-  constructor({ reference, value, footprint, prefix, datasheet, description, voltage, wattage, mpn }: IComponent = {}) {
-    super({ value: value, footprint: footprint || "Resistor_SMD:R_0603_1608Metric", prefix: prefix || 'R', reference, datasheet, description, voltage, wattage, mpn });
+  constructor({ reference, value, footprint, prefix, datasheet, description, voltage, wattage, mpn, simulation }: IComponent = {}) {
+    super({ value: value, footprint: footprint || "Resistor_SMD:R_0603_1608Metric", prefix: prefix || 'R', reference, datasheet, description, voltage, wattage, mpn, simulation });
     this.Wattage = wattage;
   }
 }
 
 export class Capacitor extends Component {
   Voltage?: string;
-  constructor({ reference, value, footprint, prefix, datasheet, description, voltage, wattage, mpn }: IComponent = {}) {
-    super({ reference, value: value, footprint: footprint || "Capacitor_SMD:C_0603_1608Metric", prefix: prefix || 'C', datasheet, description, voltage, wattage, mpn });
+  constructor({ reference, value, footprint, prefix, datasheet, description, voltage, wattage, mpn, simulation }: IComponent = {}) {
+    super({ reference, value: value, footprint: footprint || "Capacitor_SMD:C_0603_1608Metric", prefix: prefix || 'C', datasheet, description, voltage, wattage, mpn, simulation });
     this.Voltage = voltage;
   }
 }
