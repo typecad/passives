@@ -2,7 +2,7 @@
 This is a typeCAD package that includes simple access to many passive components. 
 
 ## Resistors, capacitors, LEDs, diodes, fuses, and inductors
-This package uses a named parameter-like interface. Any parameter can be included or left out. They can be access and modified later in code. 
+This package uses a named parameter-like interface. Any parameter can be included or left out. They can be accessed and modified later in code. 
 
 ```ts
 import { Schematic } from '@typecad/typecad'
@@ -46,34 +46,19 @@ let j1 = new Connector({ number: 10, footprint:"Connector_JST:JST_SH_SM10B-SRSS-
 let j2 = new Connector({ number: 5 });
 ```
 
-## Power 
-Power is abstracted in **type**CAD. This package includes a `Power` class which progressively does more as different parameters are passed.
+## Testpoints
+Testpoints can be created:
 
 ```ts
-let typecad = new Schematic('power');
-let vcc_3v3 = new Power({ voltage: 3.3, schematic: typecad });
+import { Testpoint } from '@typecad/passives/testpoint';
+let tp = new Testpoint();
 ```
-- creates a `Power` instance, `voltage` is optional, but allows for assertion checking voltage ranges
-- a Power Flag is also created for both power and ground
-<br><br>
----
+Will create a testpoint with a default footprint of `TestPoint:TestPoint_Pad_D1.0mm`.
+
+Specific footprints can be chosen:
+
 ```ts
-let lipo = new Power({ voltage: 3.3, maximum: 4.2, minimum: 3.2, schematic: typecad });
+let tp = new Testpoint({ footprint: 'TestPoint:TestPoint_Keystone_5015_Micro_Mini'});
 ```
-- passing optional `maximum` and `minimum` allows for more voltage assertions
-<br><br>
----
-```ts
-let typecad = new Schematic('power');
-let vcc_5v0 = new Power({ voltage: 5.0, schematic: typecad, power_name: "+5v0" });
-```
-- creates a power symbol named `+5v0:power`
-- creates a ground symbol named `ground`
----
-```ts
-let typecad = new Schematic('power');
-let iso_3v3 = new Power({voltage: 3.3, schematic: typecad, ground_name: "iso_ground"});
-```
-- creates a power symbol named `3.3:power`
-- creates a ground symbol named `iso_ground` with a PWR_Flag attached
----
+
+Connect a testpoint using `tp.pin(1)` in the `::net()` method. 
