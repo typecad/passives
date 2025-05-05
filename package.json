@@ -1,6 +1,6 @@
 {
   "name": "@typecad/passives",
-  "version": "0.0.22",
+  "version": "0.1.2",
   "description": "typeCAD package that includes simple access to common components",
   "keywords": [
     "typecad",
@@ -10,15 +10,14 @@
     "diode",
     "led",
     "inductor",
-    "connector",
-    "power flag"
+    "connector"
   ],
   "author": "typeCAD",
   "license": "ISC",
   "scripts": {
     "package_publish": "npm publish --access public"
   },
-  "devDependencies": {
-    "@typecad/typecad": "~0.0.31"
+  "peerDependencies": {
+    "@typecad/typecad": "~0.1.5"
   }
 }
