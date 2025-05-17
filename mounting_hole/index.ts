@@ -4,7 +4,8 @@ interface IMountingHole {
     reference?: string,
     footprint?: string,
     uuid?: string,
-    size?: 'M2' | 'M2.5' | 'M3' | 'M4' | 'M5' | 'M6' | 'M8'
+    size?: 'M2' | 'M2.5' | 'M3' | 'M4' | 'M5' | 'M6' | 'M8',
+    pcb?: { x: number, y: number, rotation: number }
 }
 
 const sizeToFootprint: Record<NonNullable<IMountingHole['size']>, string> = {
@@ -18,8 +19,8 @@ const sizeToFootprint: Record<NonNullable<IMountingHole['size']>, string> = {
 }
 
 export class MountingHole extends Component {
-    constructor({ reference, footprint, size = 'M2', uuid }: IMountingHole = { }) {
+    constructor({ reference, footprint, size = 'M2', pcb, uuid }: IMountingHole = { }) {
         const selectedFootprint = footprint || sizeToFootprint[size];
-        super({ reference, footprint: selectedFootprint, prefix: 'MH', uuid });
+        super({ reference, footprint: selectedFootprint, prefix: 'MH', uuid, pcb });
     }
 }
