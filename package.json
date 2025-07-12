@@ -1,6 +1,6 @@
 {
   "name": "@typecad/passives",
-  "version": "0.1.3",
+  "version": "0.1.8",
   "description": "typeCAD package that includes simple access to common components",
   "keywords": [
     "typecad",
@@ -18,6 +18,6 @@
     "package_publish": "npm publish --access public"
   },
   "peerDependencies": {
-    "@typecad/typecad": "~0.1.8"
+    "@typecad/typecad": "~0.2.0"
   }
 }
