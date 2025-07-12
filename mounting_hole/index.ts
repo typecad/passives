@@ -21,6 +21,6 @@ const sizeToFootprint: Record<NonNullable<IMountingHole['size']>, string> = {
 export class MountingHole extends Component {
     constructor({ reference, footprint, size = 'M2', pcb, uuid }: IMountingHole = { }) {
         const selectedFootprint = footprint || sizeToFootprint[size];
-        super({ reference, footprint: selectedFootprint, prefix: 'MH', uuid, pcb });
+        super({ reference, footprint: selectedFootprint, prefix: 'MH', uuid, pcb, symbol: 'Mechanical:MountingHole_Pad' });
     }
 }
